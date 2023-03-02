@@ -1,0 +1,53 @@
+#ASSIGNMENT 1
+
+#write a pgm to check whether the input no is odd or even
+
+i=int(input("enter the number"))
+if i%2==0:
+    print("the number is even")
+else:
+    print("the number is odd")
+
+#write a pgm to check whether the input number is prime number
+
+n=int(input("enter the number"))
+flag=False
+if n==1:
+    print(n,"is not prime number")
+elif n>1:
+    for i in range(2,n):
+        if(n%i)==0:
+            flag=True
+            break
+    if flag:
+        print(n,"is not prime number")
+    else:
+        print(n,"is a prime number")
+
+#write a pgm to check whether a person is eligible for voting or not
+
+p=int(input("enter the age"))
+if p>=18:
+    print("the person is eligible for voting")
+else:
+    print("the person is not eligible for voting")
+
+
+#write a program to check whether a number is divisible by 7 or 8
+
+n=int(input("enter the number"))
+if n%7==0 or n%8==0:
+    print("the number is divisible by 7 or 8")
+else:
+    print("the number is not divisible by 7 or 8")
+
+#write a pgm to calculate the electricity bill(accept from user)
+
+u=int(input("enter the amount of unit consumed"))
+if u<=100:
+    print("no charge")
+elif 100<u<=200:
+    print("Rs.5 charge","\n" "and" "the bill=",(u-100)*5)
+else:
+    if 200<u:
+        print("Rs.30 per unit","\n" "and" "the bill amount =",(u-200)*10+500)
