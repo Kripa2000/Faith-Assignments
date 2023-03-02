@@ -1,0 +1,48 @@
+#ASSIGNMENT 3
+
+#Write a function to check whether input string is pallindrome.
+
+def pallin(d):
+    
+    #l.append(c)
+    c.reverse()
+
+    print(c,d)
+    if c==d:
+        print("it is pallindrome")
+    else:
+        print("it is not pallindrome")
+
+l=(input("enter the string"))
+c=[]
+d=[]
+c.append(l)
+d.append(l)
+pallin(d)
+
+
+#Write a function to find fibonacci series of a number
+
+def fib(n):
+    L=[0]   #Intialise first element with 0
+    a,b=0,1 #a=0 b=1
+    for i in range(n):
+        a,b=b,a+b   #a=b  b=a+b
+        L.append(a)
+    return L
+print(fib(int(input("Enter the number:"))))
+
+
+#Factorial
+
+def fac(n):
+    if n==0:
+        print("the factorial=",1)
+    elif n>=1:
+        for i in range(n):
+            if(i>=1):
+                n=n*i
+        print(n)
+    return
+n=int(input("enter the number"))
+fac(n)
