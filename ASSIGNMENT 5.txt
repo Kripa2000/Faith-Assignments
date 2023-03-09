@@ -1,0 +1,147 @@
+#ASSIGNMENT 5
+
+#Write a function named sort_odd_even() that will sort a list of numbers with the odd numbers
+#coming first and the even numbers coming second. You can use the list.sort function.
+
+'''def num(l,e,o):
+    for i in range (4):
+        l.append(int(input("enter the number")))
+    for j in l:
+        if j%2==0:
+            e.append(j)
+            e.sort()
+        else:
+            o.append(j)
+            o.sort()
+    print(o+e)
+    return num
+l=[]
+e=[]
+o=[]
+num(l,e,o)'''
+
+#By using list comprehension, write a program to print the list after removing the value 24 in [12,24,35,24,88,120,155]
+
+'''l=[12,24,35,24,88,120,155]
+print([x for x in l if x!=24 ])'''
+
+
+#Use a list comprehension to square each odd number in a list. The list is input by a sequence of comma-separated numbers.
+
+'''a=input("enter the elements in a list separated by comma")
+newlist=[int(x)**2 for x in a.split(",") if int(x)%2!=0]
+print(newlist)'''
+
+
+
+#Using list comprehension, return the number of even integers in the given array.
+
+'''n=[1,2,3,4,5,6,7,8,9,10]
+e=[i for i in n if i%2==0]
+print(e)'''
+
+#Use filter() to eliminate all words that are shorter than 4 letters from a list of words.
+
+''def remove_words(list1):
+    result=list(filter(lambda s:len(s)>3,list1))
+    print(result)
+list1=["hello","world","iam"]
+remove_words(list1)'''
+
+'''l=[x for x in input("enter the words").split(" ")]
+def shorter(y):
+    if len(y)>3:
+        return True
+    return False
+x=filter(shorter,l)
+print(list(x))'''
+
+
+#Write a list comprehension statement to convert a list of Fahrenheit temperatures to Celsius
+
+'''n=[100,200,50,300]
+f=[(i-32)*5/9 for i in n]
+print(f)'''
+
+#Use map and a lambda function to convert a list of Fahrenheit temperatures to a list of Celsius temperatures
+
+
+'''t=[100,200,300]
+m=list(map(lambda n: 5/9*(n-32),t))
+print(m)'''
+
+
+#Input two lists and convert the two list to dictionary.
+
+
+'''a=input("enter the keys")
+b=input("enter the values")
+l1=a.split(",")
+l2=b.split(",")
+d=dict(zip(l1,l2))
+print(d)'''
+
+
+#Make a two-player Rock-Paper-Scissors game. One of the players is the computer. 10 chances.
+#Print out the winner and points earned by both players.
+
+'''import random
+pWin=0
+cWin=0
+tieCount=0
+for playcount in range(1,11):
+    playerInput=input("Enetr R for Rock,P for Paper.S for Sicor:")
+    randomNumber= random.randint(0, 2)
+    computerInput=(['R','S','P'])[randomNumber]
+    print('you have entered : ',playerInput)
+    print('computerInput : ',computerInput)
+
+    if((playerInput=='R' and computerInput=='R') or (playerInput=='S' and computerInput=='S') or (playerInput=='P' and computerInput=='P')):
+       print( "tie")
+       tieCount=tieCount+1
+    elif ((playerInput == 'R' and computerInput == 'S') or
+            (playerInput == 'S' and computerInput == 'P') or (playerInput == 'P' and computerInput == 'R')):
+        pWin=pWin+1
+        print("You win")
+    else:
+        computerWinCount=computerWinCount+1
+        print("computer won")
+print(pWin," is player win count and " ,cWin," is computer win count. ",tieCount," games tie")
+
+
+
+
+
+
+
+
+#Write a program which accepts a sequence of comma-separated numbers from console and generate a list and a tuple which contains every number.
+
+'''c=input("enter the number")
+d=c.split(",")
+print(d)
+print(tuple(d))'''
+
+
+#Write a program that accepts a comma separated sequence of words as input and prints the words in a comma-separated sequence after sorting them alphabetically.
+
+'''a=input("enter the words")
+c=a.split(",")
+c.sort()
+print(c)'''
+
+
+#Write a program which accepts a sequence of comma separated 4 digit binary numbers as its input and then check whether they are divisible by 5 or not.
+# The numbers that are divisible by 5 are to be printed in a comma separated sequence.
+
+'''a=input("enter the 4 digit binary numbers with, separated")
+value=[]
+#items=[x for x in a.split(",")]
+items=a.split(",")
+for p in items:
+    decimal=int(p,2)
+    print(decimal)
+    if decimal%5==0:
+        value.append(p)
+        print(value)
+print(",".join(value))'''
