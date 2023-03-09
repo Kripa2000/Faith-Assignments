@@ -1,0 +1,41 @@
+#write a function that takes two lists and returns a new list with elements that are common to 
+#both the lists.The new list should not have any duplicates and input lists may be of different lengths.
+
+'''def fun(a,b):
+    m=a.split(",")
+    n=b.split(",")
+    c=set(m)&set(n)
+    d=list(c)
+    print(d)
+    return
+
+a=input("enter the numbers")
+b=input("enter the numbers")
+fun(a,b)'''
+#ASSIGNMENT 6
+
+#The multiplicative persistance of a positive integer is the number of steps required to get a one digit number when separating 
+#the digits and multiplying them.
+
+'''num=input("enter the number: ")
+a=[]
+while len(num)>1:
+    n=1
+    for i in num:
+        n=n*int(i)
+    a.append(n)
+    num = str(n)
+print("sequence =",a)
+print("multilplicative persistance i=",len(a))'''
+
+#given an positive integerr n, if you apply the following rukes iteratively, you will eventually get a 
+# 1. it is called collatz sequence
+
+'''n=(int(input("Enter the number")))
+print("you have entered:",n)
+while n > 1:
+    if n %2==0:
+        n=n/2
+    else:
+        n=(3*n)+1
+    print(n)'''
