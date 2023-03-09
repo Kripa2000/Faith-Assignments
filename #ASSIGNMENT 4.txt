@@ -1,0 +1,93 @@
+#ASSIGNMENT 4
+
+#Write a procedure that solves quadratic equations using the quadratic formula: It should take as arguments three numbers a,b and c.
+#It should print error messages if a is zero, or if the roots are complex. Otherwise it should print the two roots.
+
+'''def quad(a,b,c):
+    if a==0:
+        print("error")
+    if b**2>4*a*c:
+        x1=((-b)+(b**2-4*a*c)**0.5)/2*a
+        x2=((-b)-(b**2-4*a*c)**0.5)/2*a
+        print("The roots are",x1,",",x2)
+        return quad
+    elif b**2<4*a*c:
+        print("The roots are",complex)
+    return  
+a=int(input("enter the number"))
+b=int(input("enter the number"))
+c=int(input("enter the number"))
+quad(a,b,c)'''
+
+
+#Write a program that reads in a string on the command line and returns a table of the frequency of occurrence of each word. Ignore the case.
+#This should involve writing a function that takes in a string and returns a dictionary with these letters and counts.
+
+
+a=input("enter the words:")
+b=dict()
+txt=a.split(" ")
+for i in txt:
+    if i in b:
+        b[i]+=1
+    else:
+        b[i] = 1
+print(b)
+
+
+#Write a program that accepts a sentence and calculate the number of letters and digits.
+
+'''n=input("Enter a sentence: ")
+letters = 0
+digits = 0
+for i in n:
+    if i.isalpha():
+        letters += 1
+    elif i.isdigit():
+        digits += 1
+print("LETTERS", letters)
+print("DIGITS", digits)'''
+
+
+#Write a Python program to check the validity of a password input by the user. The password should satisfy the following conditions:
+#a. It should have at least 1 letter [a to z]
+#b. It should have at least 1 number [0 to 9]
+#c. It should have at least 1 capital letter [A to Z]
+#d. It should have at least one special character [$, #, @]
+#e. Minimum length = 6 characters
+#f. Maximum length = 12 characters
+
+'''import re
+n=input("enter the password")
+c=re.findall("[a-z0-9]",n)
+d=re.findall("[A-Z]",n)
+e="@,#,$"
+for i in n:
+    if i in c and d and e and 6<=len(n)<=12:
+        print("the password is valid")
+        break
+else:
+    print("invalid")'''
+
+
+#Write a Python program that takes a string of words separated by spaces, together with a ”target” word, and shows the position 
+#of the target word in the string of words.
+
+'''n=input("enter the sentence")
+t=input("enter the target word")
+c=n.split(" ")
+for index,t in enumerate(c):
+    print()
+    if t in c:
+        print(index,t)'''
+
+'''n=input("enter the string to be checked")
+targetword=input("enter the target word")
+x=n.split(" ")
+j=0
+index=[]
+for i in x:
+    if i==targetword:
+        index.append(j)
+    j+=1
+print(index)'''
