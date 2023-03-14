@@ -1,0 +1,103 @@
+/* 1 question */
+
+create table department
+(
+departmentno int not null primary key,
+departmentname varchar(20) unique,
+floor int,
+location varchar(20)
+);
+desc department
+
+create table employee
+(
+Employeenumber int not null primary key,
+managerid int,
+firstname char(20) not null,
+lastname varchar(30),
+userid int,
+departmentno int,
+salary number(10,2),
+commission int,
+joiningdate date,
+constraint p_i foreign key(departmentno) references department (departmentno)
+on delete cascade
+);
+desc employee
+
+alter table employee add  HRA number(5,2);
+
+alter table employee add  PF number(5,2) check (PF<=5000);
+
+/* 2 question */
+
+create table customer
+(
+custno int not null primary key,
+custname varchar(20),
+address varchar(30)
+);
+desc customer
+
+create table order1
+(
+orderno int not null primary key,
+custno  int,
+orderdate date,
+constraint f foreign key(custno) references customer(custno)
+);
+desc order1
+
+create table orderitem
+(
+itemid int not null primary key,
+orderno int,
+itemname varchar(20),
+quantity number(2),
+constraint d foreign key (orderno) references order1(orderno)
+);
+desc orderitem
+
+alter table customer modify address varchar(100);
+
+/*3 question */
+
+create table course
+(
+constraint courseid_depid_c primary key (courseid,depid),
+courseid varchar(5) not null,
+depid varchar(5),
+streamid varchar(20),
+description varchar(200),
+title varchar(40),
+fees int
+);
+desc course
+
+
+create table batch
+(
+batchid  varchar(30),
+courseid varchar(5),
+batchname char(1)
+);
+desc batch
+
+create table student
+(
+studid varchar(20),
+lastname varchar(25),
+middlename varchar(30),
+firstname varchar(20),
+dob date default sysdate,
+address varchar(50),
+city varchar(20),
+state varchar(2),
+zipcode varchar(9),
+telephone varchar(10),
+fax varchar(10),
+email varchar(30),
+grade char(1),
+check (grade in ('A','A+','A-','B','B+','B-','C','C+','C-','D','D+','D-','F','F+','F-'))
+);
+desc student
