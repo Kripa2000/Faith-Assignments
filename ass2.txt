@@ -1,0 +1,354 @@
+/* 1.question */
+create table employee
+(
+employeeno int,
+employeename varchar(20),
+deptno int
+);
+desc employee
+insert all
+into employee(employeeno,employeename,deptno)
+values(101,'kripa',1)
+into employee(employeeno,employeename,deptno)
+values(102,'krishna',2)
+into employee(employeeno,employeename,deptno)
+values(103,'riya',3)
+into employee(employeeno,employeename,deptno)
+values(104,'reena',4)
+into employee(employeeno,employeename,deptno)
+values(105,'rithik',5)
+select * from dual
+
+select * from employee
+
+create table employee2
+(
+id int,
+lastname varchar(20),
+deptid int
+);
+insert into employee2
+select * from employee2
+select * from employee
+
+/* 2.question */
+alter table employee add employeecode int
+insert all
+into employee (employeeno,employeename,deptno,employeecode) 
+values(555,'Peer',888,999)
+into employee (employeeno,employeename,deptno,employeecode) 
+values(88,'veer',78,123)
+select * from dual
+
+/* ans: if we add data to table it will be added on */
+
+/* 3. question */
+create table department
+(
+deptno int not null primary key,
+depname varchar(20),
+deptid int,
+location varchar(20)
+);
+insert into department values(12,'hr',5,'trivandrum')
+select * from department
+
+create table employe
+(
+deptno int,
+empno int,
+empid int,
+emplocation varchar(20),
+constraint y foreign key(deptno) references department(deptno)
+);
+
+insert into employe values(125,1,2,'trivandrum')
+/*ans: foriegn key can have value in primary key and null values */
+
+/* 4. question */
+
+create table customer1
+(
+custid int,
+custname varchar(20),
+location varchar(20)
+);
+
+insert all
+into customer1(custid,custname,location)
+values(1,'riya','kerala')
+into customer1(custid,custname,location)
+values(2,'reena','karnataka')
+into customer1(custid,custname,location)
+values(3,'rithik','tamilnaidu')
+select * from dual 
+select * from customer1
+
+delete from customer1 where custid=1
+
+/* 6 question */
+insert into employee values(1010,'Rithi',null,null)
+
+/* 7 question */
+
+create table customer
+(
+customerid int,
+customername varchar(20),
+address varchar(30),
+location varchar(20)
+);
+
+drop table customer
+
+insert all
+into customer(customerid,customername,address,location)
+values(111,'rena','pearl house','trivandrum')
+into customer(customerid,customername,address,location)
+values(222,'rela','white house','kerala')
+into customer(customerid,customername,address,location)
+values(333,'tena','royal house','kottayam')
+select * from dual
+
+select * from customer
+
+update customer set address='newdelhi' where customerid=333
+
+/* 8. question */
+
+create table employeerec
+(
+employeeid int,
+employeedep varchar(20),
+salary number(10,2)
+);
+
+insert all
+into employeerec(employeeid,employeedep,salary)
+values(78,'accounts',3000)
+into employeerec(employeeid,employeedep,salary)
+values(68,'marketing',4000)
+into employeerec(employeeid,employeedep,salary)
+values(58,'sales',5000)
+into employeerec(employeeid,employeedep,salary)
+values(48,'manager',10000)
+into employeerec(employeeid,employeedep,salary)
+values(38,'leader',9000)
+select * from dual
+
+select * from employeerec
+delete from employeerec where salary>5000
+
+/* 9 question */
+
+create table employ
+(
+deptno int,
+deptname varchar(20),
+location varchar(20)
+);
+
+insert all
+into employ(deptno,deptname,location)
+values(1,'accounts','first floor')
+into employ(deptno,deptname,location)
+values(2,'marketing','second floor')
+into employ(deptno,deptname,location)
+values(3,'sales','third floor')
+into employ(deptno,deptname,location)
+values(4,'manager','fourth floor')
+into employ(deptno,deptname,location)
+values(5,'leader','fifth floor')
+select * from dual
+
+select * from employ
+
+update employ set deptno=8, deptname='hr' where deptno=1
+
+/* 10 question */
+
+create table student
+(
+studentid int,
+studentmailid varchar(40),
+studentdep varchar(30)
+);
+
+insert all
+into student(studentid,studentmailid,studentdep)
+values(12,'arya@gmail.com','science')
+into student(studentid,studentmailid,studentdep)
+values(13,'rithi@gmail.com','computer')
+into student(studentid,studentmailid,studentdep)
+values(14,'NA','humanities')
+select * from dual
+
+select * from student
+
+update student set studentmailid='reena@gmail.com' where studentid=14
+
+/* 11 question */
+
+create table student1
+(
+studentid int,
+studentmailid varchar(40),
+studentdep varchar(30),
+studentage int
+);
+
+insert all
+into student1(studentid,studentmailid,studentdep,studentage)
+values(12,'arya@gmail.com','science',20)
+into student1(studentid,studentmailid,studentdep,studentage)
+values(13,'rithi@gmail.com','computer',22)
+into student1(studentid,studentmailid,studentdep,studentage)
+values(14,'NA','humanities',18)
+select * from dual
+
+select * from student1
+
+delete student1 where studentage>20
+
+/* 12 question */
+
+create table student3
+(
+studentid int,
+studentmailid varchar(40),
+studentdep varchar(30),
+studentage int,
+telephoneno int
+);
+
+insert all
+into student3(studentid,studentmailid,studentdep,studentage,telephoneno)
+values(12,'arya@gmail.com','science',20,null)
+into student3(studentid,studentmailid,studentdep,studentage,telephoneno)
+values(13,'rithi@gmail.com','computer',22,9875461236)
+into student3(studentid,studentmailid,studentdep,studentage,telephoneno)
+values(14,'NA','humanities',18,4152637896)
+select * from dual
+
+select * from student3
+
+delete student3 where studentmailid ='NA' 
+delete student3 where telephoneno is null
+
+/* 13. question */
+
+create table student2
+(
+studentid int,
+studentmailid varchar(40),
+studentdep varchar(30),
+studentage int,
+telephoneno int,
+dob date
+);
+
+insert all
+into student2(studentid,studentmailid,studentdep,studentage,telephoneno,dob)
+values(12,'arya@gmail.com','science',20,9987545222,TO_DATE('11/05/2015','DD/MM/YY'))
+into student2(studentid,studentmailid,studentdep,studentage,telephoneno,dob)
+values(12,'arya@gmail.com','science',20,9987545222,TO_DATE('05/06/2015','DD/MM/YY'))
+into student2(studentid,studentmailid,studentdep,studentage,telephoneno,dob)
+values(12,'arya@gmail.com','science',20,9987545222,TO_DATE('01/08/2015','DD/MM/YY'))
+select * from dual
+
+select * from student2
+
+delete from student2 where dob like '06/05%';
+
+/* 14. question  */
+
+create table student5
+(
+studentid int,
+firstname varchar(20),
+lastname varchar(20),
+dob date
+);
+
+insert all
+into student5(studentid,firstname,lastname,dob)
+values(12,'kriagh','raj','05/25/1999')
+into student5(studentid,firstname,lastname,dob)
+values(14,'krishna','r','06/27/2000')
+into student5(studentid,firstname,lastname,dob)
+values(13,'riya','p','08/22/2001')
+select * from dual
+select * from student5
+
+update student5 set dob=current_date where firstname like '___a'
+
+update student5 set firstname='xxxx'
+
+/* 15 question */
+
+create table student6
+(
+studentid int,
+firstname varchar(20),
+lastname varchar(20),
+dob date
+);
+
+insert all
+into student6(studentid,firstname,lastname,dob)
+values(12,'kripa','raj','05/25/1999')
+into student6(studentid,firstname,lastname,dob)
+values(14,'krishna','r','06/27/2000')
+into student6(studentid,firstname,lastname,dob)
+values(13,'riya','p','08/22/2001')
+select * from dual
+
+select * from student6
+delete from student6 where firstname like'%a'
+
+/* 16. question */
+
+create table student7
+(
+studentid int,
+firstname varchar(20),
+lastname varchar(20),
+dob date
+);
+
+insert all
+into student7(studentid,firstname,lastname,dob)
+values(12,'kripa','raj','01/25/1999')
+into student7(studentid,firstname,lastname,dob)
+values(14,'krishna','r','06/27/2000')
+into student7(studentid,firstname,lastname,dob)
+values(13,'riya','p','08/22/2001')
+select * from dual
+
+select * from student7
+drop table student7
+
+update student7 set lastname='jan' where dob like '01/%'
+
+/* 17. question */
+
+create table student8
+(
+studentid int,
+firstname varchar(20),
+lastname varchar(20),
+state varchar(30)
+);
+
+insert all
+into student8(studentid,firstname,lastname,state)
+values(12,'kripa','raj','kerala')
+into student8(studentid,firstname,lastname,state)
+values(14,'krishna','r','tamilnaidu')
+into student8(studentid,firstname,lastname,state)
+values(13,'riya','p','delhi')
+select * from dual
+
+select * from student8
+
+delete from student8 where state like 't%'
