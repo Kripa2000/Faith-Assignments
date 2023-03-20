@@ -1,0 +1,308 @@
+/* 1. question */
+
+create table my_employee
+(
+employid int, 
+firstname varchar(20),
+lastname varchar(20),
+salary number(10,2)
+);
+
+insert all
+into my_employee(employid, firstname, lastname, salary)
+values(1,'riya','ddddddddddd',5000)
+into my_employee(employid, firstname, lastname, salary)
+values(2,'ritha','yyyyyyyyyy',7000)
+into my_employee(employid, firstname, lastname, salary)
+values(3,'manu','pppppppppppp',4000)
+select * from dual
+
+select * from my_employee
+select concat(substr(firstname,1,1),substr(lastname,1,7)) from my_employee
+
+/* 2. question */
+create table wagess
+(
+empid int,
+empname varchar(20),
+empdep varchar(20),
+salary number(10,2)
+);
+drop table wagess
+insert all
+into wagess(empid,empname,empdep,salary)
+values(1,'hari','hr',4000)
+into wagess(empid,empname,empdep,salary)
+values(2,'aparna','sales',700)
+into wagess(empid,empname,empdep,salary)
+values(3,'arun','manager',5000)
+into wagess(empid,empname,empdep,salary)
+values(4,'ali','marketing',900)
+into wagess(empid,empname,empdep,salary)
+values(5,'riya','hr',3000)
+select * from dual
+
+select * from wagess
+select min(salary) from wagess
+select min(salary),empdep from wagess group by empdep having min(salary)>1000
+
+
+/* 3. question */
+
+create table employ
+(
+empid int,
+empname varchar(20),
+empdep varchar(20)
+)
+
+insert all
+into employ(empid,empname,empdep)
+values(1,'krIpa','hr')
+into employ(empid,empname,empdep)
+values(2,'krisHna','sales')
+into employ(empid,empname,empdep)                                                                                                                                                                                                                         
+values(3,'miya','account')
+into employ(empid,empname,empdep)                                                                                                                                                                                                                         
+values(4,'jaya','manager')
+into employ(empid,empname,empdep)                                                                                                                                                                                                                         
+values(5,'riya','marketing')
+select * from dual
+
+select * from employ
+select initcap(empname) from employ
+select initcap(empname) , length(empname) from employ where empname like 'j%' or empname like'm%'
+
+/* 4 question */
+
+create table employe
+(
+empid int,
+empname varchar(20),
+empdep varchar(20)
+)
+
+insert all
+into employe(empid,empname,empdep)
+values(1,'kripa','hr')
+into employe(empid,empname,empdep)
+values(2,'krishna','sales')
+into employe(empid,empname,empdep)                                                                                                                                                                                                                         
+values(3,'tomy','account')
+into employe(empid,empname,empdep)                                                                                                                                                                                                                         
+values(4,'sidh','manager')
+into employe(empid,empname,empdep)                                                                                                                                                                                                                         
+values(5,'rahul','marketing')
+select * from dual
+
+select * from employe
+select empname , instr(empname,'a',1) from employe 
+
+/* 5 question */
+
+create table wages
+(
+empid int,
+empdep varchar(20),
+salary number(10,2)
+);
+
+insert all
+into wages(empid,empdep,salary)
+values(1,'hr',4000)
+into wages(empid,empdep,salary)
+values(2,'sales',700)
+into wages(empid,empdep,salary)
+values(3,'manager',5000)
+into wages(empid,empdep,salary)
+values(4,'marketing',900)
+into wages(empid,empdep,salary)
+values(5,'account',3000)
+select * from dual
+
+select * from wages
+select empdep from wages
+select min(salary) from wages
+select max(salary) from wages
+select avg(salary) from wages
+select sum(salary) from wages
+
+/* 6. question */
+
+create table employ1
+(
+empno int,
+empname varchar(20),
+empdep varchar(20),
+salary number(10,2)
+);
+
+insert all
+into employ1(empno,empname,empdep,salary)
+values(1,'kripa','sale',211.5)
+into employ1(empno,empname,empdep,salary)
+values(1,'riya','account',5531)
+into employ1(empno,empname,empdep,salary)
+values(1,'priya','hr',6792)
+select * from dual
+drop table employ1
+select * from employ1
+select (salary+(salary*0.15)) from employ1
+select round((salary+(salary*0.15)),2) from employ1
+
+/* 7. question */
+
+create table employ2
+(
+empno int,
+empname varchar(20),
+empdep varchar(20),
+salary number(10,2)
+);
+
+
+insert all
+into employ2(empno,empname,empdep,salary)
+values(1,'kripa','sale',211.5)
+into employ2(empno,empname,empdep,salary)
+values(1,'riya','account',5531)
+into employ2(empno,empname,empdep,salary)
+values(1,'priya','hr',6792)
+select * from dual
+
+select * from employ2
+select empname,salary from employ2
+select lpad(salary,15,'$') from employ2
+
+/* 8. question */
+
+create table employ3
+(
+empid int,
+empname varchar(20),
+commission varchar(20)
+);
+drop table employ3
+insert all
+into employ3(empid,empname,commission)
+values(1,'kripa',45)
+into employ3(empid,empname,commission)
+values(2,'riya',null)
+into employ3(empid,empname,commission)
+values(3,'priya',90)
+select * from dual
+
+select * from employ3
+
+select to_char(sysdate,'day ddspth "of" mon yyyy') from dual;
+select empid, empname,NVL(to_char(commission),'no commission') as commission from employ3
+
+select * from employ3
+
+/* 9. question */
+
+create table student
+(
+stuid int,
+firstname varchar(40),
+lastname varchar(20)
+);
+drop table student
+insert all
+into student(stuid,firstname,lastname)
+values(1,'riyaaaaaaa','yt')
+into student(stuid,firstname,lastname)
+values(2,'miya','rs')
+into student(stuid,firstname,lastname)
+values(3,'hariiiiiii','ar')
+select * from dual
+
+select * from student
+select stuid, substr(firstname,1,10),lastname from student
+select stuid,firstname,lastname from student where length(firstname)=10
+
+/* 10 question */
+
+create table company
+(
+managerid int,
+empid int,
+salary number(10,2)
+);
+drop table company
+insert all
+into company(managerid,empid,salary)
+values(1,101,400)
+into company(managerid,empid,salary)
+values(2,102,5000)
+into company(managerid,empid,salary)
+values(null,103,7000)
+into company(managerid,empid,salary)
+values(3,104,3000)
+into company(managerid,empid,salary)
+values(4,105,800)
+select * from dual
+
+select * from company
+select managerid  ,min(salary)from company group by managerid  having  min(salary)>1000 and managerid is  not null order by min(salary) desc ;
+
+
+/* 11. question */
+
+create table office
+(
+empname varchar(20),
+hiredate date,
+review date
+);
+
+insert all
+into office(empname,hiredate,review)
+values('arun',TO_DATE('11-05-2015','DD-MM-YYYY'),TO_DATE('11-06-2015','DD-mm-YYYY'))
+into office(empname,hiredate,review)
+values('aparna',TO_DATE('12-06-2015','DD-MM-YYYY'),TO_DATE('12-07-2015','DD-mm-YYYY'))
+into office(empname,hiredate,review)
+values('riya',TO_DATE('19-03-2015','DD-MM-YYYY'),TO_DATE('19-03-2015' ,'DD-mm-YYYY'))
+select * from dual
+select * from  office
+
+#to_char(inputvalue,format)
+select empname, to_char(hiredate,'day ddspth "of" mon yyyy'),
+to_char(NEXT_DAY(ADD_MONTHS(hiredate,6),'MONDAY'),'day ddspth "of" mon yyyy')
+from office;                                                                       /* select to_char(sysdate,'day ddspth "of" mon yyyy') from dual */
+
+/* 12. question */
+
+create table offices
+(
+empname varchar(20),
+hiredate date,
+review date,
+salary int,
+joining_date date
+);
+
+insert all
+into offices(empname,hiredate,review,salary,joining_date)
+values('arun',TO_DATE('11-05-2015','DD-MM-YYYY'),TO_DATE('11-06-2015','DD-mm-YYYY'),1000,TO_DATE('18-06-2010','DD-mm-YYYY'))
+into offices(empname,hiredate,review,salary,joining_date)
+values('aparna',TO_DATE('12-06-2015','DD-MM-YYYY'),TO_DATE('12-07-2015','DD-mm-YYYY'),14200,TO_DATE('15-06-2011','DD-mm-YYYY'))
+into offices(empname,hiredate,review,salary,joining_date)
+values('riya',TO_DATE('19-03-2015','DD-MM-YYYY'),TO_DATE('19-03-2015' ,'DD-mm-YYYY'),8536,TO_DATE('19-06-2012','DD-mm-YYYY'))
+select * from dual
+select * from  offices
+
+select round(months_between(sysdate,joining_date)) as months_worked from offices order by round(months_between(sysdate,joining_date)) 
+
+/* 13. question */
+
+select empname,
+round((salary/1000),0)*1000 as rounded_salary,
+round((round((salary/1000),0)*1000)*12*0.3, 2) AS Bonus
+from offices
+ORDER BY Bonus desc
+
+
+
+
+
