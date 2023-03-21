@@ -1,0 +1,252 @@
+/* ASSIGNMENT 4 */
+
+/* JOINS */
+
+create table department
+(
+deptno int primary key,
+deptname varchar(30),
+location varchar(30),
+depthead varchar(20)
+);
+
+create table employee
+(
+empid int primary key,
+empname varchar(20),
+gender varchar(20),
+designation varchar(30),
+salary int,
+deptno int,
+constraint fk_emdep foreign key(deptno) references department(deptno),
+managerid int
+);
+
+insert all
+into department(deptno, deptname, location, depthead) 
+values(1,'IT','London','Rick')
+into department(deptno, deptname, location, depthead) 
+values(2,'PAYROLL','Delhi','Sanjay')
+into department(deptno, deptname, location, depthead) 
+values(3,'HR','Newyork','Christie')
+into department(deptno, deptname, location, depthead) 
+values(4,'Other Department','Syndey','Cindrella')
+select * from dual
+
+select * from department
+
+insert into employee values(1,'Tom','Male','It Manager',40000,1,NULL)
+insert into employee values(2,'Pam','Female','Software engineer',30000,1,1)
+insert into employee values(3,'John','Male','Hr Manager',35000,3,null)
+insert into employee values(4,'Sam','Male','Team Lead',45000,1,1)
+insert into employee values(5,'Todd','Male','Coordinator',28000,3,3)
+insert into employee values(6,'Ben','Male','Account Manager',70000,2,null)
+insert into employee values(8,'Ganga','Female','Accountant',48000,2,6)
+insert into employee values(9,'James','Male',null,65000,null,5)
+insert into employee values(10,'Russell','Male',null,88000,null,5)
+
+select * from employee 
+select * from department
+update department set deptname='shoe' where deptno=3
+update department set location='dallas' where deptno=3
+
+/* 1. question */
+
+select e.empname as employe,m.empname as manager
+from employee e
+join employee m
+on e.managerid=m.empid
+
+/* 2. question */
+
+select distinct e.empname as Manageremploy
+from employee e
+join employee empname
+on e.empid=empname.managerid
+
+/* 3. question */
+
+select empname,deptname, 'Every Year Mark of'||
+deptname ||'department earns amount'||(salary*12) as AnnualIncomeReport from employee
+left join department
+on employee.deptno=department.deptno
+
+/* 5. question */
+
+select deptname,empname from employee 
+full join
+department 
+on employee.deptno=department.deptno
+order by deptname,empname desc
+
+/* 6. question: Find out employee name and departmentname of employees who either works in a Toy or Shoe department. */
+
+select empname,deptname from employee
+join 
+department
+on employee.deptno=department.deptno
+where deptname = 'toy' or deptname='shoe'
+
+/* 7. Name concatenated with department, separated by comma and space and name column Employee and department */
+
+select empname||', '||deptname as Employee_and_Department
+from employee
+full join 
+department
+on employee.deptno=department.deptno
+
+/* 8. Write a query to display name, job, department number and department name for all employees who work in DALLAS */
+
+select empname, designation, employee.deptno, deptname from employee
+join department
+on employee.deptno=department.deptno
+where location ='dallas'
+
+/*9. List the names of all employees along with name of managers */
+
+select e.empname as employe,m.empname as manager
+from employee e
+join employee m
+on e.managerid=m.empid
+
+/*10. Display all employee name, manager number and manager name of all employees including King who have no manager */
+
+select e.empname as employe,m.empname as manager,m.managerid as manager_no
+from employee e
+left join employee m
+on e.managerid=m.empid
+
+/*11. Display employee name, department number and all employees that work in same department as a given employee (‘Mathew’). Give each column an appropriate label */
+
+select e.deptno,m.empname
+from employee e
+left join
+employee m
+on e.deptno=m.deptno
+where e.empname ='Tom'
+
+
+/*12. Create a unique listing of all jobs that are in department 30. Include location of department 30 in the output. */
+
+select designation,location
+from employee
+full join department
+using (deptno)
+where deptno=3
+
+select * from employee
+select * from department
+
+/* 13.Display the name of students and the course they are doing */
+
+create table students
+(
+studid int primary key,
+studname varchar(30),
+location varchar(20)
+)
+
+create table details
+(
+studno int primary key,
+deptname varchar(20),
+course varchar(30),
+studid int,
+constraint y foreign key(studid) references students(studid)
+)
+
+insert all
+into students(studid,studname,location)
+values(1,'kripa','tvm')
+into students(studid,studname,location)
+values(2,'krishna','kollam')
+into students(studid,studname,location)
+values(3,'riya','kottayam')
+select * from dual
+select * from students
+
+
+insert all
+into details(studno,deptname,course,studid)
+values(101,'ece','btech',3)
+into details(studno,deptname,course,studid)
+values(102,'computer','mca',1)
+into details(studno,deptname,course,studid)
+values(103,'mech','poly',2)
+into details(studno,deptname,course)
+values(104,'cse','degree')
+into details(studno,deptname,course,studid)
+values(105,'eee','bca',2)
+select * from dual
+select * from details  
+
+select studname,course 
+from students
+join
+details
+on students.studid=details.studid
+
+
+/* 14. Display the name of student and the batch name */
+
+select studname as Name_of_Student,deptname as Batch_name
+from students
+join
+details
+on students.studid=details.studid
+
+/* 15.Display the name of student and the course name even if there is no student in the course */
+
+select studname,course 
+from students
+right join
+details
+on students.studid=details.studid
+
+/* 16.Display the name of the customer, the data of order and the items ordered by the customer */
+
+create table customers
+(
+custid int primary key,
+custno int,
+custname varchar(20),
+location varchar(30)
+)
+
+create table items1
+(
+orderid int primary key,
+order_date date,
+item_order varchar(30),
+custno int,
+constraint t foreign key(custno) references customers(custId)
+)
+
+insert all 
+into customers(custid,custno,custname,location)
+values(101,01,'tiya','tvm')
+into customers(custid,custno,custname,location)
+values(102,02,'miya','tamilnaidu')
+into customers(custid,custno,custname,location)
+values(103,03,'hiya','ekm')
+select * from dual
+
+select * from customers
+
+insert all 
+into items1(orderid,order_date,item_order,custno)
+values(101,TO_DATE('05/11/2019'),'tea',101)
+into items1(orderid,order_date,item_order,custno)
+values(102,TO_DATE('01/01/2020'),'pen',102)
+into items1(orderid,order_date,item_order,custno)
+values(103,TO_DATE('09/28/2021'),'sugar',103)
+into items1(orderid,order_date,item_order,custno)
+values(104,TO_DATE('07/22/2022'),'ghee',null)
+select * from dual
+
+select custname, order_date, item_order
+from customers 
+left join
+items1 
+on customers.custid=items1.custno
+
