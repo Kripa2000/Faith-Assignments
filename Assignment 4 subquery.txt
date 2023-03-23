@@ -1,0 +1,64 @@
+
+/* ASSIGNMENT 4 SUBQUERY */
+
+/*1. Show the name, hiredate and job for employee with most seniority */
+
+create table employ8
+(
+empid int primary key not null,
+empname varchar(40),
+deptno int,
+deptname varchar(35),
+designation varchar(20),
+hiredate date,
+salary int,
+commission int
+);
+
+insert all
+into employ8(empid,empname,deptno ,deptname,designation , hiredate ,salary ,commission )
+values(101,'kripa',100,'eee','clerk','08/15/2020',15000,500)
+into employ8(empid,empname,deptno ,deptname,designation , hiredate ,salary ,commission )
+values(102,'manu',101,'me','manager','06/25/2021',20000,250)
+into employ8(empid,empname,deptno ,deptname,designation , hiredate ,salary ,commission )
+values(103,'anu',102,'cs','teacher','01/15/2020',25000,null)
+into employ8(empid,empname,deptno ,deptname,designation , hiredate ,salary ,commission )
+values(104,'hari',101,'me','clerk','02/23/2019',15000,500)
+into employ8(empid,empname,deptno ,deptname,designation , hiredate ,salary ,commission )
+values(105,'ammu',103,'ce','worker','09/01/2022',10000,null)
+select * from dual;
+insert into employ8 values(106,'steena',101,'ce','worker','09/01/2022',20000,null)
+insert into employ8 values(107,'alli',103,'ece','manager','09/01/2022',25000,null)
+
+select empname,hiredate ,designation from employ8  
+where hiredate=(select min(hiredate) from employ8)
+
+/* 2.Create a query to display name, hiredate and salary for all employees who have both same salary and commission as tod. Don’t display tod in result set. */
+
+select * from employ8
+insert into employ8 values(108,'tod',100,'eee','clerk','12/08/2021',15000,500)
+
+select empname,hiredate,salary from employ8 where salary=(select salary from employ8 where empname='tod') and 
+commission=(select commission from employ8 where empname='tod')
+
+/*3.Display number, name and salary for all employees who earn more than average salary and who work in a department with any employee whose name contains a ‘T’ */
+
+select empid,empname,salary from employ8 where salary>(select avg(salary) from employ8) and deptno in (select deptno from employ8 where empname like '%t%')
+
+/*4.Display number, name and salary for all employees who earn more than average salary and who work in a department with any employee whose name contains a ‘T’*/
+
+insert into employ8 values(109,'pooja',100,'me','clerk','12/08/2021',15000,null)
+select empname,deptno,salary from employ8 where (deptno,salary) in (select deptno,salary from employ8 where commission is not null)
+
+/*5.Create a query to display employee that earn a salary that is higher than salary of all Clerks. Sort result on salary from highest to lowest */
+
+select empname,salary,designation  from employ8 where salary>(select max(salary)from employ8 where designation ='worker') order by salary desc
+
+/*6.List each department that has an average salary less than the company average salary. Show department number and average salary */
+
+select deptname,avg(salary) from employ8 group by deptname having avg(salary)<(select avg(salary)from employ8)
+select * from employ8
+
+/*7.Find out the name and department name of manager getting the highest salary */
+
+select empname, deptname from employ8 where salary=(select max(salary) from employ8 where designation='teacher') and designation='manager'
