@@ -1,0 +1,194 @@
+/* ASSIGNMENT 5 */
+
+/*1. Question: Create a PL/SQL block that computes commission amount for a given employee based on employees salary. Accept employee number as user input with SQL*PLUS substitution variables.
+A)If employees salary is <1000 set commission amount for employee to 10% of salary
+B) If employee salary is between 1000 and 1500 set commission amount for employee to 15% of salary
+C) If employees salary exceeds 1500 set commission amount for employee to 20% of salary.
+D) If employee salary is null set commission amount for employee to 0.
+ */
+drop table employee
+create table employee
+(
+empid int primary key not null,
+empname varchar(30),
+empsalary int,
+commission int
+)
+insert all
+into employee(empid,empname,empsalary,commission)
+values(101,'kripa',9000,800)
+into employee(empid,empname,empsalary,commission)
+values(102,'riya',1200,400)
+into employee(empid,empname,empsalary,commission)
+values(103,'priya',800,200)
+into employee(empid,empname,empsalary,commission)
+values(104,'tiya',1500,700)
+into employee(empid,empname,empsalary,commission)
+values(105,'manu',1300,600)
+select * from dual
+insert into employee values(106,'karthik',null,500)
+
+select * from employee
+
+Declare
+sal employee.empsalary%type;
+Begin
+select empsalary into sal from employee where empid =:empid;
+ if (sal<1000) then
+  update employee set commission=sal*.1 where empid=:empid;
+  dbms_output.put_line('Commission='||sal*.1); 
+ elsif(sal between 1000 and 1500) then
+  update employee set commission=sal*.15 where empid=empid;
+  dbms_output.put_line('Commission='||sal*.15);
+ elsif(sal >1500) then
+  update employee set commission=sal*.2 where empid=empid;
+  dbms_output.put_line('Commission='||sal*.2); 
+ elsif(sal=null) then
+  update employee set commission=0 where empid=empid;
+  dbms_output.put_line('Commission='||0); 
+ end if;
+end;
+
+/* 2.Question: Select the record from emp which has highest salary & insert it into the table empl (empno, comm) with commission as 10% of salary */
+
+create table emp1
+(
+empno int,
+comm int
+)
+Declare
+ empno employee.empid%type;
+ sal employee.empsalary%type;
+Begin
+ select empid,empsalary into empno,sal from employee where empsalary=(select max(empsalary) from employee);
+ insert into emp1 values(empno,sal*.1);
+end;
+select * from emp1
+select * from employee
+
+/*3. Write a PL/SQL program to create a emp %ROWTYPE record. Accept empno from the user and display all the information about the employee */
+
+Declare
+e employee%rowtype; 
+emp employee%rowtype;
+Begin
+ select *  into emp from employee  where empid=:e;
+ dbms_output.put_line('Employee id:'||emp.empid);
+ dbms_output.put_line('Employee Name:'||emp.empname);
+ dbms_output.put_line('Employee Salary:'||emp.empsalary);
+ dbms_output.put_line('Employee Commission:'||emp.commission);
+End;
+
+/*4. Write an anonymous block for getting the number of rows present in a table */
+
+Declare
+RowCount int;
+Begin
+ select count(*) into RowCount from employee;
+ dbms_output.put_line('No Of Rows ='||RowCount);
+End;
+
+/*5.Write PL/SQL block to delete the record of an employee whose salary is less than 4000.Get the empno from the user */
+
+Declare 
+sal employee.empsalary%type;
+Begin
+ select empsalary into sal from employee where empid=:empid;
+ if (sal<4000) then
+  delete from employee where empid=:empid;
+ end if;  
+End;
+
+select * from employee
+**********************************************************************************************************************************************************************************************************************************
+/* VIEW */
+ 
+/* 1.The programmer needs to retrieve the minimum salary and the maximum salary using a simple query. */
+
+create view emp_1 as select max(empsalary) as Maximum_Salary, min(empsalary) as Minimum_Salary from employee 
+
+/* 2.Display the content of above view */
+
+select * from emp_1
+
+/*3.The programmer needs to retrieve the deptno, deptname and the name of the employee without using a join. */
+
+create view dept1 as select deptno,deptname,depthead as Employee_Name from department
+select * from dept1
+
+/*4.The programmer needs to retrieve the employee names and their managers name order by descending order of manager names, without using a join. */
+select * from emp
+
+create view view_1(ename,mgr)
+as
+select e.ename,m.ename from emp e,emp m where 
+e.mgr=m.empno order by m.ename desc;
+
+select * from view_1
+
+/*5. Create a non-unique index on foreign key column deptid in Employee table. */
+
+create index empindex on emp(deptno)
+
+/*6. Display indexes and uniqueness that exist in data dictionary for Employee table. */
+
+select * from user_indexes where table_name='EMP' and uniqueness='NONUNIQUE';
+
+/*7.The programmer needs the primary key value of department table (deptno) to be generated automatically. Criteria: starting value 1 and incrementing by 1,maximum value is 99.*/
+
+CREATE SEQUENCE seq_deptno
+
+MINVALUE 1
+MAXVALUE 99
+START WITH 1
+INCREMENT BY 1
+CACHE;
+DROP TABLE supplier
+CREATE TABLE supplier(
+supplier_id int, supplier_name varchar(20));
+INSERT INTO tasks(id, title)
+VALUES(task_id_seq.NEXTVAL, 'Create Sequence in Oracle');
+SELECT
+seq_deptno.NEXTVAL
+FROM
+dual
+CONNECT BY level <= 9;
+SELECT * FROM supplier;
+DROP SEQUENCE seq_deptno;
+
+/*8.Create a view called Emp_vu based on employee number, name and department number from emp table. Change heading for employee name to Employee. */
+
+CREATE OR REPLACE VIEW emp_vu AS SELECT empno, ename AS employee, deptno FROM emp;
+SELECT * FROM emp_vu
+
+/*9.Select view name and text from data dictionary. */
+
+SELECT view_name, text FROM user_views;
+
+/*10.Using view Emp_vu write a query to display all employee names and department numbers. */
+
+SELECT employee, deptno FROM emp_vu;
+
+/*11.Create a view called Salary_vu based on employee name, department name, salary and Salary grade for all employees. Label column Employee, Department, Salary And Grade respectively. */
+
+CREATE OR REPLACE VIEW Salary_vu AS SELECT ename AS employee, deptno AS department, sal AS SALARY FROM emp;
+
+/*12.Create a sequence to be used with primary key column of Department table. Sequence should start at 60 and have a maximum value of 200. Have your sequence increment by 10. Name it as deptid_seq. */
+
+CREATE SEQUENCE deptid_seq
+MINVALUE 1
+MAXVALUE 200
+START WITH 60
+INCREMENT BY 10
+NOCACHE;
+
+INSERT INTO dept(deptno,dname,loc)
+VALUES(deptid_seq.NEXTVAL,'ENGINEER','TOKYO')
+
+select * from dept
+
+/*13.Write a query to display following information about your sequence: sequence name, maximum value, increment-size and last number. */
+
+SELECT * FROM user_sequences;
+
+SELECT sequence_name, max_value, increment_by, last_number FROM user_sequences;
