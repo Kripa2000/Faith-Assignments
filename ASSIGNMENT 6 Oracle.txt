@@ -1,0 +1,228 @@
+/* ASSIGNMENT 6 */
+
+/* 1.Create a function that returns the number of employees in a department [Parameter taken by the function is deptid] */
+
+create or replace function get_count(no in number)
+return number
+IS
+no_emp NUMBER;
+deptid emp.deptno%type;
+Begin
+Deptid:=no;
+select count(*) into no_emp from emp where Deptno=Deptid;
+Return no_emp;
+End;
+
+Declare
+id number;
+num int;
+Begin
+num:=:num;
+id:=get_count(num);
+dbms_output.put_line(id);
+End;
+
+Select * from emp
+
+/* 2.Create a function that takes in marks and maxmarks and returns the percentage scored */
+
+create or replace function percent(Mark in number, Max_Mark in number)
+Return number
+IS
+Marks number;
+Maxmarks number;
+Percentage number;
+Begin
+Marks:=Mark;
+Maxmarks:=Max_Mark;
+Percentage:=(Marks/Maxmarks)*100;
+dbms_output.put_line(&#39;Percentage IS &#39;||Percentage );
+Return Percentage ;
+End;
+
+Declare
+Marks number;
+Maxmarks number;
+Percentage number;
+Begin
+Marks:=:Mark;
+Maxmarks :=:Max_Mark;
+Percentage:=percent(Mark,Max_Mark);
+End;
+
+/* 3.Create a procedure that displays employee details, department details of a particular employee id */
+
+create or replace procedure emp(a in varchar)
+is
+id varchar(30);
+name varchar(30);
+depart number;
+begin
+id:=a;
+select empno,ename,deptno into id,name,depart from emp
+where empno:=id;
+dbms_output.put_line(&#39;name is &#39;||name ||&#39;, depart is &#39;||depart);
+end;
+
+Declare
+id varchar(30);
+name varchar(30);
+depart number;
+begin
+id:=:a;
+emp(id);
+end;
+
+/* 4.Implement a function that calculates and returns the average salary of a dept */
+
+create or replace function average(Enter_Department in number)
+Return number
+IS
+deptid emp.deptno%type;
+Avg_Salary emp.sal%type;
+Begin
+Deptid:=Enter_Department;
+Select Avg(sal) into Avg_Salary from emp where deptno=deptid;
+dbms_output.put_line(&#39;Average salary of  &#39;||deptid||&#39; IS
+&#39;||Avg_Salary);
+Return Avg_Salary;
+End;
+
+Declare
+deptid emp.deptno%type;
+Avg_Salary emp.sal%type;
+Begin
+deptid=:id;
+Avg_Salary:=average(deptid);
+End;
+select * from emp
+
+/* 5.Write a procedure for adding a new supplier into the supplier table, where the supplier table contains supplier_id, supplier_name and location. Proper exception handling should be done for duplicate value on the supplier id */
+
+create table supplier(
+supplier_id int primary key,
+supplier_name varchar(35),
+location varchar(40)
+)
+create or replace procedure supply(a in int,b in varchar,c in varchar)
+IS
+supplier_id int;
+supplier_name varchar(30);
+location varchar(30);
+BEGIN
+supplier_id:=a;
+supplier_name:=b;
+location:=c;
+insert into supplier values(supplier_id,supplier_name ,location);
+dbms_output.put_line(&#39;ID ; &#39;|| supplier_id||&#39; NAME ;
+&#39;||supplier_name ||&#39; LOCATION ; &#39;||location );
+End;
+
+Declare
+supplier_id int;
+supplier_name varchar(35);
+location varchar(40);
+Begin
+supplier_id=:ID;
+supplier_name=:NAME;
+location=:LOC;
+supply(supplier_id,supplier_name,location);
+End;
+
+/* 6.Write a procedure that will get the value from the user and insert rows into employee table without violating any of the integrity constraints */
+
+create or replace procedure update_employee(A IN VARCHAR,B IN
+VARCHAR,C IN VARCHAR,D IN VARCHAR,E IN NUMBER,F IN NUMBER,G IN
+NUMBER)
+IS
+ID_K VARCHAR(30);
+NAME_K VARCHAR(30);
+GENR_K VARCHAR(30);
+DESIG_K VARCHAR(30);
+SAL_K NUMBER;
+DEPT_K NUMBER;
+MANAGER_K NUMBER;
+Begin
+ID_K:=A;
+NAME_K:=B;
+GENR_K:=C;
+DESIG_K:=D;
+SAL_K:=E;
+DEPT_K:=F;
+MANAGER_K:=G;
+INSERT INTO EMPLOYEE
+VALUES(ID_K,NAME_K,GENR_K,DESIG_K,SAL_K,DEPT_K,MANAGER_K);
+dbms_output.put_line(&#39;EMPLOYEE UPDATED&#39;);
+End;
+
+Declare
+ID_K VARCHAR(30);
+NAME_K VARCHAR(30);
+GENR_K VARCHAR(30);
+DESIG_K VARCHAR(30);
+SAL_K NUMBER;
+DEPT_K NUMBER;
+MANAGER_K NUMBER;
+Begin
+ID_K:=:A;
+NAME_K:=:B;
+GENR_K:=:C;
+
+DESIG_K:=:D;
+SAL_K:=:E;
+DEPT_K:=:F;
+MANAGER_K:=:G;
+update_employee(ID_K,NAME_K,GENR_K,DESIG_K,SAL_K,DEPT_K,MANAGER_K);
+End;
+
+/* 7.Write a procedure, which can be used to insert a new department in DEPT table */
+
+CREATE OR REPLACE procedure ADDING(ENTER_DEPARTMENT_NO IN
+INT,ENTER_NAME IN VARCHAR,ENTER_LOCATION IN VARCHAR)
+IS
+DEPTID DEPT.DEPTNO%TYPE;
+NAME DEPT.DNAME%TYPE;
+LOCATION DEPT.LOC%TYPE;
+Begin
+DEPTID :=ENTER_DEPARTMENT_NO;
+NAME :=ENTER_NAME;
+LOCATION:=ENTER_LOCATION;
+INSERT INTO DEPT VALUES(DEPTID ,NAME,LOCATION);
+dbms_output.put_line(&#39;DEPARTMENT ID ; &#39;|| DEPTID ||&#39; NAME ; &#39;||
+NAME||&#39; LOCATION ; &#39;|| LOCATION);
+End;
+
+Declare
+DEPTID DEPT.DEPTNO%TYPE;
+NAME DEPT.DNAME%TYPE;
+LOCATION DEPT.LOC%TYPE;
+Begin
+DEPTID :=:ENTER_DEPARTMENT_NO;
+NAME :=:ENTER_NAME;
+LOCATION:=:ENTER_LOCATION;
+ADDING(DEPTID,NAME ,LOCATION);
+End;
+
+/* 8.Write a program which accepts employee number and amount and calls a procedure which does the following actions:
+a. Update the salary of employee with the given amount. Handle exceptions if there is no such employee record */
+
+create or replace procedure salaryadd(empl_no in number,amountadd
+in number)
+is
+employee_number emp.empno%type;
+amount emp.sal%type;
+Begin
+employee_number:=empl_no;
+amount :=amountadd ;
+UPDATE emp SET sal=amount WHERE empno=employee_number;
+dbms_output.put_line(&#39;SALARY UPDATED&#39;);
+End;
+
+Declare
+employee_number emp.empno%type;
+amount emp.sal%type;
+Begin
+employee_number:=:empl_no;
+amount :=:updated_salary;
+salaryadd(employee_number,amount);
+End;
