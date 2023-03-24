@@ -1,0 +1,227 @@
+/* MACHINE TEST */
+
+create table manufacture
+(
+mfname varchar(30) primary key,
+city varchar(20),
+state varchar(20)
+)
+
+create table employee
+(
+employee_id int primary key,
+empname varchar(20),
+phone int,
+email varchar(20),
+area_code int
+)
+
+create table computer
+(
+serialnumber int primary key,
+model varchar(20),
+weight number(10,2),
+employeeid int,
+constraint ee foreign key(employeeid) references employee(employee_id),
+mfname varchar(30),
+constraint mf foreign key(mfname) references manufacture(mfname),
+condition varchar(20)
+)
+
+insert all
+into manufacture(mfname,city,state)
+values('Riya','South Dakota','Delhi')
+into manufacture(mfname,city,state)
+values('Manu','North Fort','Punjab')
+into manufacture(mfname,city,state)
+values('Priya','Trivandrum','Kerala')
+into manufacture(mfname,city,state)
+values('Hari','South Dakota','Delhi')
+select * from dual
+ 
+
+insert all
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(101,'Windows10',15.2,1,'Riya','Inuse')
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(102,'Windows11',20,3,'Priya','Not in use')
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(103,'Windows7',15.2,2,'Manu','Inuse')
+select * from dual
+insert into computer values(104,'Windows6',21.8,4,'Hari','Not in use')
+
+
+insert all 
+into employee(employee_id,empname,phone,email,area_code)
+values(1,'tiya',1234567891,'tiya@gmail.com',1001)
+into employee(employee_id,empname,phone,email,area_code)
+values(2,'mittu',7356662883,'mittu@gmail.com',1005)
+into employee(employee_id,empname,phone,email,area_code)
+values(3,'arun',9946824929,'arun@gmail.com',1007)
+select * from dual
+insert into employee values(4,'akhil',8137031745,'akhil@gmail.com',2008)
+insert into employee values(5,'ammu',4567891239,'ammu@gmail.com',2076)
+select * from employee
+
+/* 1. List the manufacturers names that are located in South Dakota */
+
+select mfname from manufacture where city='South Dakota'
+
+/* 2.Calculate the average weight of the computers in use. */
+
+select avg(weight) from computer where condition='Inuse'
+
+/* 3.List the employee names for employees whose area_code starts with 2 */
+
+select empname from employee where area_code like '2%'
+
+/* 4.List the serial numbers for computers that have a weight below average */
+
+select serialnumber from computer where weight<(select avg(weight) from computer)
+
+/* 5.List the manufacturer names of companies that do not have any computers in use. Use a subquery */
+
+select mfname from computer where condition in (select condition from computer where condition='Not in use')
+
+/* 6.Create a VIEW with the list of employee name, their computer serial number, and the city that they were manufactured in. Use a join */
+
+create or replace view view_1 as select e.empname,c.serialnumber,m.city
+from employee e
+join
+computer c
+on (e.employee_id=c.employeeid)
+join manufacture m
+on (m.mfname=c.mfname)
+
+select * from view_1 
+
+select * from employee
+select * from computer
+select * from manufacture
+
+/* 7.Write a Stored Procedure to accept EmployeeId as parameter and List the serial number, manufacturer name, model, and weight of computer that belong to the specified Employeeid */
+
+/* MACHINE TEST */
+
+create table manufacture
+(
+mfname varchar(30) primary key,
+city varchar(20),
+state varchar(20)
+)
+
+create table employee
+(
+employee_id int primary key,
+empname varchar(20),
+phone int,
+email varchar(20),
+area_code int
+)
+
+create table computer
+(
+serialnumber int primary key,
+model varchar(20),
+weight number(10,2),
+employeeid int,
+constraint ee foreign key(employeeid) references employee(employee_id),
+mfname varchar(30),
+constraint mf foreign key(mfname) references manufacture(mfname),
+condition varchar(20)
+)
+
+insert all
+into manufacture(mfname,city,state)
+values('Riya','South Dakota','Delhi')
+into manufacture(mfname,city,state)
+values('Manu','North Fort','Punjab')
+into manufacture(mfname,city,state)
+values('Priya','Trivandrum','Kerala')
+into manufacture(mfname,city,state)
+values('Hari','South Dakota','Delhi')
+select * from dual
+ 
+
+insert all
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(101,'Windows10',15.2,1,'Riya','Inuse')
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(102,'Windows11',20,3,'Priya','Not in use')
+into computer(serialnumber,model,weight,employeeid,mfname,condition)
+values(103,'Windows7',15.2,2,'Manu','Inuse')
+select * from dual
+insert into computer values(104,'Windows6',21.8,4,'Hari','Not in use')
+
+
+insert all 
+into employee(employee_id,empname,phone,email,area_code)
+values(1,'tiya',1234567891,'tiya@gmail.com',1001)
+into employee(employee_id,empname,phone,email,area_code)
+values(2,'mittu',7356662883,'mittu@gmail.com',1005)
+into employee(employee_id,empname,phone,email,area_code)
+values(3,'arun',9946824929,'arun@gmail.com',1007)
+select * from dual
+insert into employee values(4,'akhil',8137031745,'akhil@gmail.com',2008)
+insert into employee values(5,'ammu',4567891239,'ammu@gmail.com',2076)
+select * from employee
+
+/* 1. List the manufacturers names that are located in South Dakota */
+
+select mfname from manufacture where city='South Dakota'
+
+/* 2.Calculate the average weight of the computers in use. */
+
+select avg(weight) from computer where condition='Inuse'
+
+/* 3.List the employee names for employees whose area_code starts with 2 */
+
+select empname from employee where area_code like '2%'
+
+/* 4.List the serial numbers for computers that have a weight below average */
+
+select serialnumber from computer where weight<(select avg(weight) from computer)
+
+/* 5.List the manufacturer names of companies that do not have any computers in use. Use a subquery */
+
+select mfname from computer where condition in (select condition from computer where condition='Not in use')
+
+/* 6.Create a VIEW with the list of employee name, their computer serial number, and the city that they were manufactured in. Use a join */
+
+create or replace view view_1 as select e.empname,c.serialnumber,m.city
+from employee e
+join
+computer c
+on (e.employee_id=c.employeeid)
+join manufacture m
+on (m.mfname=c.mfname)
+
+select * from view_1 
+
+select * from employee
+select * from computer
+select * from manufacture
+
+/* 7.Write a Stored Procedure to accept EmployeeId as parameter and List the serial number, manufacturer name, model, and weight of computer that belong to the specified Employeeid */
+
+create or replace procedure user1111(a IN number)
+Is
+no number(10,2);
+name varchar(20);
+model varchar(30);
+weights int;
+Begin
+ select serialnumber,mfname,model,weight into no,name,model,weights from computer where employeeid=a;
+End;
+
+Declare
+a number;
+emplid int;
+Begin
+  emplid=:a;
+ dbms_output.put_line('serialno'||no);
+ dbms_output.put_line('serialno'||name);
+ dbms_output.put_line('serialno'||model);
+ dbms_output.put_line('serialno'||weights);
+end;
+
